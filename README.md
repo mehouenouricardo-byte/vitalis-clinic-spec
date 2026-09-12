@@ -16,7 +16,7 @@ Repository contents
 
 - "VitalisClinic—English.pdf" – high-level technical and functional specification (English PDF)
 - "VitalisClinic version_française.pdf" – high-level technical and functional specification (French PDF)
-- "Vitalis-Clinic-Technical-Specification-EN-FR.html" – interactive HTML version of the specification (with EN/FR toggle)
+- "index.html" – interactive HTML version of the specification (with EN/FR toggle)
 
 Scope
 
