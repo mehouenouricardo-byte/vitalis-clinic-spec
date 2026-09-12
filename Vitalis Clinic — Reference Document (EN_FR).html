@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Vitalis Clinic — Reference Document</title>
+<style>
+  :root {
+    --ink: #0f2027;
+    --ink-soft: #33474f;
+    --paper: #fbfaf7;
+    --card: #ffffff;
+    --teal: #0f6e6a;
+    --teal-deep: #0a4f4c;
+    --teal-pale: #e3f2f0;
+    --amber: #c9822a;
+    --amber-pale: #fbeedd;
+    --line: #e2e0d8;
+    --shadow: 0 1px 3px rgba(15,32,39,0.06), 0 1px 2px rgba(15,32,39,0.08);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+    font-size: 15.5px;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 40px 60px;
+  }
+
+  /* ---------- LANGUAGE TOGGLE ---------- */
+  .lang-toggle {
+    position: fixed;
+    top: 18px; right: 18px;
+    z-index: 50;
+    background: rgba(255,255,255,0.95);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 4px;
+    box-shadow: var(--shadow);
+    display: flex;
+    gap: 2px;
+  }
+  .lang-btn {
+    border: none;
+    background: transparent;
+    padding: 7px 14px;
+    border-radius: 100px;
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--ink-soft);
+    font-family: inherit;
+  }
+  .lang-btn.active {
+    background: var(--teal);
+    color: #fff;
+  }
+
+  /* ---------- HEADER ---------- */
+  .hero {
+    background: linear-gradient(135deg, var(--teal-deep) 0%, var(--teal) 55%, #1a8f89 100%);
+    color: #fff;
+    padding: 64px 40px 48px;
+    margin-bottom: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    right: 40px; bottom: -80px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .hero-inner { max-width: 780px; margin: 0 auto; position: relative; }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    background: rgba(255,255,255,0.12);
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 22px;
+    font-weight: 600;
+  }
+  .hero h1 {
+    font-size: 38px;
+    margin: 0 0 12px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .hero p.lede {
+    font-size: 17px;
+    color: rgba(255,255,255,0.92);
+    max-width: 640px;
+    margin: 0 0 28px;
+  }
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .pill {
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    padding: 7px 14px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  /* ---------- TOC ---------- */
+  .toc {
+    background: var(--card);
+    margin: -28px auto 40px;
+    max-width: 780px;
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    padding: 26px 32px;
+    position: relative;
+    z-index: 2;
+  }
+  .toc h3 {
+    margin: 0 0 14px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--teal-deep);
+  }
+  .toc ol {
+    columns: 2;
+    column-gap: 32px;
+    margin: 0;
+    padding-left: 20px;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .toc li { margin-bottom: 7px; break-inside: avoid; }
+
+  /* ---------- SECTIONS ---------- */
+  section.block {
+    margin: 52px 0;
+  }
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 10px;
+  }
+  .section-tag .num {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    background: var(--teal);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  }
+  h2 {
+    font-size: 25px;
+    margin: 0 0 16px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  h3.sub {
+    font-size: 16.5px;
+    color: var(--teal-deep);
+    margin: 28px 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  p { color: var(--ink-soft); margin: 0 0 12px; }
+  strong { color: var(--ink); }
+
+  .lead-text {
+    font-size: 16.5px;
+    color: var(--ink-soft);
+    border-left: 3px solid var(--teal);
+    padding-left: 18px;
+  }
+
+  /* ---------- CARDS / GRID ---------- */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 18px 0;
+  }
+  .grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin: 18px 0;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 18px;
+    box-shadow: var(--shadow);
+  }
+  .card h4 {
+    margin: 0 0 6px;
+    font-size: 14.5px;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card p { margin: 0; font-size: 13.8px; }
+  .card .icon {
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    background: var(--teal-pale);
+    color: var(--teal-deep);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  /* ---------- RULE / CALLOUT BOXES ---------- */
+  .rule {
+    background: var(--teal-pale);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-size: 14px;
+    color: var(--teal-deep);
+    border-left: 3px solid var(--teal);
+  }
+  .rule strong { color: var(--teal-deep); }
+
+  .callout-amber {
+    background: var(--amber-pale);
+    border-left: 3px solid var(--amber);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-size: 14px;
+    color: #7a4d15;
+  }
+
+  /* ---------- TABLES ---------- */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 13.6px;
+  }
+  th {
+    text-align: left;
+    background: var(--teal-deep);
+    color: #fff;
+    padding: 9px 12px;
+    font-weight: 600;
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+  }
+  th:first-child { border-radius: 8px 0 0 0; }
+  th:last-child { border-radius: 0 8px 0 0; }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #f7f6f1; }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline {
+    position: relative;
+    margin: 24px 0;
+    padding-left: 28px;
+    border-left: 2px solid var(--line);
+  }
+  .tl-item { position: relative; margin-bottom: 20px; }
+  .tl-item::before {
+    content: "";
+    position: absolute;
+    left: -34px; top: 3px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--teal);
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 2px var(--teal);
+  }
+  .tl-item h4 { margin: 0 0 4px; font-size: 14.5px; color: var(--ink); }
+  .tl-item p { margin: 0; font-size: 13.6px; }
+
+  /* ---------- FLOW STRIP ---------- */
+  .flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+  .flow-step {
+    flex: 1;
+    min-width: 150px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    padding: 16px;
+    font-size: 13px;
+    position: relative;
+  }
+  .flow-step:first-child { border-radius: 10px 0 0 10px; }
+  .flow-step:last-child { border-radius: 0 10px 10px 0; }
+  .flow-step .step-num {
+    display: inline-block;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: #fff;
+    text-align: center;
+    line-height: 20px;
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+  .flow-step h5 { margin: 0 0 4px; font-size: 13.5px; color: var(--ink); }
+  .flow-step p { margin: 0; font-size: 12.5px; color: var(--ink-soft); }
+
+  /* ---------- CLOSING ---------- */
+  .closing {
+    background: linear-gradient(135deg, var(--ink) 0%, #1c3a3e 100%);
+    color: #f2efe7;
+    border-radius: 16px;
+    padding: 36px 40px;
+    margin-top: 50px;
+  }
+  .closing h2 { color: #fff; }
+  .closing p { color: rgba(255,255,255,0.82); }
+  .closing .grid-2 .card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+  .closing .card h4 { color: #fff; }
+  .closing .card p { color: rgba(255,255,255,0.78); }
+  .closing .icon { background: rgba(255,255,255,0.14); color: #fff; }
+
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 44px 0;
+  }
+
+  footer.meta {
+    text-align: center;
+    font-size: 12px;
+    color: #9a9788;
+    margin-top: 40px;
+  }
+
+  /* ---------- PRINT ---------- */
+  @media print {
+    body { background: #fff; font-size: 12.5px; }
+    .hero { padding: 40px 30px 30px; }
+    .toc { box-shadow: none; border: 1px solid var(--line); margin-top: -18px;}
+    .card, .flow-step { box-shadow: none; }
+    section.block { margin: 30px 0; page-break-inside: avoid; }
+    .closing { page-break-inside: avoid; }
+    .lang-toggle { display: none; }
+    a { color: inherit; text-decoration: none; }
+  }
+
+  @media (max-width: 640px) {
+    .grid-2, .grid-4 { grid-template-columns: 1fr; }
+    .toc ol { columns: 1; }
+    .hero h1 { font-size: 28px; }
+    .page { padding: 0 18px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="lang-toggle">
+  <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+  <button class="lang-btn" id="btn-fr" onclick="setLang('fr')">FR</button>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow" data-i18n="eyebrow">📋 Product Reference Document</div>
+    <h1 data-i18n="title">Vitalis Clinic</h1>
+    <p class="lede" data-i18n="lede">A multidisciplinary clinic management platform — four roles, four core functions, and a business logic designed to be adaptable for real-world deployment.</p>
+    <div class="hero-meta">
+      <span class="pill" data-i18n="pill1">🏥 Booking · Medical Records · Payments · Notifications</span>
+      <span class="pill" data-i18n="pill2">🌍 FR / EN</span>
+      <span class="pill" data-i18n="pill3">🔐 GDPR by design</span>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="toc">
+    <h3 data-i18n="toc-title">Table of Contents</h3>
+    <ol data-i18n="toc-list">
+      <li>What Vitalis Clinic is</li>
+      <li>How the project was steered</li>
+      <li>Build sequence</li>
+      <li>Account & compliance</li>
+      <li>Booking, availability & rescheduling</li>
+      <li>Payments & edge cases</li>
+      <li>Reminder cascade & staff alerts</li>
+      <li>Doctor cancellations & leave</li>
+      <li>Billing & medical record</li>
+      <li>Roles & permissions</li>
+      <li>What this project demonstrates</li>
+    </ol>
+  </div>
+
+  <!-- 1 -->
+  <section class="block">
+    <div class="section-tag"><span class="num">1</span><span data-i18n="s1-tag">Scope</span></div>
+    <h2 data-i18n="s1-h2">What Vitalis Clinic is</h2>
+    <p class="lead-text" data-i18n="s1-p1">Vitalis Clinic is a vertical business product delivered per instance: each buyer gets their own deployment, adaptable to their market (payment method, language, notification channels). The goal isn't an isolated technical demo, but proof that a complex, credible business product can be steered end to end — from business logic through to production.</p>
+
+    <div class="grid-4" data-i18n="s1-cards">
+      <div class="card">
+        <h4><span class="icon">👤</span>Patient</h4>
+        <p>Books, reschedules, manages their account and data.</p>
+      </div>
+      <div class="card">
+        <h4><span class="icon">🩺</span>Doctor</h4>
+        <p>Real-time schedule, medical record, leave requests.</p>
+      </div>
+      <div class="card">
+        <h4><span class="icon">📞</span>Front desk</h4>
+        <p>Human follow-up, alert handling, walk-ins.</p>
+      </div>
+      <div class="card">
+        <h4><span class="icon">📊</span>Management</h4>
+        <p>Audit, reporting, leave approval.</p>
+      </div>
+    </div>
+
+    <div class="rule" data-i18n="s1-rule"><strong>Key design principle</strong> — nothing that showcases the build itself (presentation deck, tech stack, performance score) appears on the product. The product must stay credible as a real clinic site; its showcase lives elsewhere, in a separate portfolio.</div>
+  </section>
+
+  <!-- 2 -->
+  <section class="block">
+    <div class="section-tag"><span class="num">2</span><span data-i18n="s2-tag">Method</span></div>
+    <h2 data-i18n="s2-h2">How the project was steered</h2>
+    <p data-i18n="s2-p1">A complex business product, like a hospital-grade software system, tests the ability to frame a problem before building it — not just to write code. The project rests on three pillars.</p>
+
+    <div class="flow" data-i18n="s2-flow">
+      <div class="flow-step">
+        <div class="step-num">1</div>
+        <h5>Business framing</h5>
+        <p>Every rule (payment, GDPR, reminder cascade) is specified, then challenged through a critical review to surface contradictions before any code is written.</p>
+      </div>
+      <div class="flow-step">
+        <div class="step-num">2</div>
+        <h5>AI-assisted build</h5>
+        <p>Code is produced with an AI agent, in short cycles per functional phase — never a single monolithic pass.</p>
+      </div>
+      <div class="flow-step">
+        <div class="step-num">3</div>
+        <h5>Multi-layer verification</h5>
+        <p>Automated static analysis, review in a separate context for each phase, and a full review before any public launch.</p>
+      </div>
+    </div>
+
+    <div class="callout-amber" data-i18n="s2-callout">💡 A note on method: the business logic in this very document was itself put through the same scrutiny to eliminate contradictions — two phrasings of the same rule that didn't line up, a role able to trigger an action it was never authorized to perform, a core table missing for a function announced as a top priority. Framing a project well also means knowing how to challenge it before building it.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 3 -->
+  <section class="block">
+    <div class="section-tag"><span class="num">3</span><span data-i18n="s3-tag">Build</span></div>
+    <h2 data-i18n="s3-h2">Build sequence</h2>
+    <p data-i18n="s3-p1">The steps follow the product's real dependencies — you can't handle a payment before an appointment exists, or a reminder cascade before payments are reliable.</p>
+
+    <div class="timeline" data-i18n="s3-timeline">
+      <div class="tl-item"><h4>1 · Foundations</h4><p>Authentication, roles, real-time availability calculation, simple booking.</p></div>
+      <div class="tl-item"><h4>2 · Account & compliance</h4><p>Account management, GDPR, demo mode, multilingual support, time zones.</p></div>
+      <div class="tl-item"><h4>3 · Rescheduling & cancellation</h4><p>Rescheduling logic, doctor cancellation, schedule exceptions.</p></div>
+      <div class="tl-item"><h4>4 · Payments</h4><p>Stripe + PayPal, statuses, security audit of the inbound webhook.</p></div>
+      <div class="tl-item"><h4>5 · Notifications</h4><p>Reminder cascade, staff alerts, follow-up loop — the densest part of the project.</p></div>
+      <div class="tl-item"><h4>6 · Billing</h4><p>Automatic invoicing, credit notes on administrative correction.</p></div>
+      <div class="tl-item"><h4>7 · Doctor leave</h4><p>Request, management approval, conflicts.</p></div>
+      <div class="tl-item"><h4>8 · Hardening</h4><p>Automated tests, real concurrency, tested backups — the last step before any presentation.</p></div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 4 -->
+  <section class="block">
+    <div class="section-tag"><span class="num">4</span><span data-i18n="s4-tag">Business logic</span></div>
+    <h2 data-i18n="s4-h2">Account & compliance</h2>
+
+    <h3 class="sub" data-i18n="s4-sub1">🔑 Stable identity</h3>
+    <p data-i18n="s4-p1">The patient identifier (UUID) never changes, regardless of what's edited on the account. Fields with no security stake (name, phone) can be edited in place; sensitive fields (email, password) live in a dedicated section with double confirmation and session invalidation.</p>
+
+    <h3 class="sub" data-i18n="s4-sub2">🇪🇺 GDPR</h3>
+    <p data-i18n="s4-p2">Data export and deletion are self-service. Deletion doesn't erase the account: it anonymizes it (the UUID is kept to preserve referential integrity with past appointments and payments), while login access is genuinely deleted. Future appointments are cancelled silently — no staff alert, since there's nothing to fix — whereas a missing profile caused by a technical anomaly does trigger an alert: the difference between an intended consequence and a real problem is encoded in the data itself.</p>
+
+    <div class="grid-2" data-i18n="s4-cards">
+      <div class="card">
+        <h4><span class="icon">🌐</span>Multilingual</h4>
+        <p>FR/EN from launch, architected so a new language is an addition, not a rebuild.</p>
+      </div>
+      <div class="card">
+        <h4><span class="icon">🕐</span>Time zones</h4>
+        <p>Storage and automation run in UTC; every user sees times converted to their own local zone, never the other party's.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 5 -->
+  <section class="block">
+    <div class="section-tag"><span class="num">5</span><span data-i18n="s5-tag">Business logic</span></div>
+    <h2 data-i18n="s5-h2">Booking, availability & rescheduling</h2>
+
+    <p data-i18n="s5-p1">A slot's availability is never a field to keep in sync: it's recalculated live from the recurring schedule, one-off exceptions, and active appointments. Patient and doctor always read the same truth. The same time slot can never be booked twice, even by two patients acting at the exact same instant — that guarantee is enforced at the database level, not just in the interface.</p>
+
+    <div class="rule" data-i18n="s5-rule"><strong>Golden rule of rescheduling</strong> — rescheduling never modifies an existing appointment: it always creates a new record, linked back to the original for traceability. Any payment already made automatically follows the new date, with no decision required from the patient. The whole operation (cancel + create + move the payment) succeeds or fails as a single unit — never an inconsistent in-between state.</div>
+
+    <p data-i18n="s5-p2">A patient can reschedule freely up to 3 hours before their appointment; below that, they go through the front desk. This threshold only protects upcoming appointments — it doesn't apply to the 15-day window granted after a no-show, which follows a different logic (see next section).</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 6 -->
+  <section class="block">
+    <div class="section-tag"><span class="num">6</span><span data-i18n="s6-tag">Business logic</span></div>
+    <h2 data-i18n="s6-h2">Payments & edge cases</h2>
+
+    <p data-i18n="s6-p1">Stripe is the primary payment method, PayPal a secondary option tested to the same standard. Payment happens at the time of booking; the slot is held during the transaction, then automatically released if payment doesn't go through within a short window — no appointment ever persists without a confirmed payment.</p>
+
+    <h3 class="sub" data-i18n="s6-sub1">⏳ The 15-day rule</h3>
+    <p data-i18n="s6-p2">A no-show doesn't refund the payment: it puts it on hold for 15 days, during which the patient can reschedule using that same payment. Past that window without rescheduling, the payment becomes permanently earned by the clinic. Reporting never counts a payment on hold as earned revenue — only final statuses feed into management's dashboard.</p>
+
+    <div class="callout-amber" data-i18n="s6-callout">🔁 The same payment can never be used twice: if the rescheduled appointment is also missed, the payment immediately becomes final, with no second 15-day window opening up.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 7 -->
+  <section class="block">
+    <div class="section-tag"><span class="num">7</span><span data-i18n="s7-tag">Business logic</span></div>
+    <h2 data-i18n="s7-h2">Reminder cascade & staff alerts</h2>
+
+    <p data-i18n="s7-p1">Goal: reduce missed appointments without harassing the patient. The patient picks one, two, or three channels (WhatsApp, Telegram, Email) in a fixed priority order. Before every send, the appointment's status is re-read live — if the patient has already responded, the cascade stops immediately, regardless of the remaining channels.</p>
+
+    <table data-i18n="s7-table">
+      <tr><th>Step</th><th>Delay</th><th>Condition</th></tr>
+      <tr><td>Priority channel</td><td>T+0</td><td>Checked and status still pending</td></tr>
+      <tr><td>Next channel</td><td>+5h</td><td>Checked and status still pending</td></tr>
+      <tr><td>Last channel</td><td>+5h</td><td>Checked and status still pending</td></tr>
+    </table>
+
+    <p data-i18n="s7-p2">Hard circuit breaker: within 3 hours of the appointment, the cascade stops, no matter how far along it is. No automated sends between 9pm and 7am (patient's local time), unless delaying would miss the reminder's useful window entirely.</p>
+
+    <div class="rule" data-i18n="s7-rule"><strong>"Needs attention" queue</strong> — eight distinct situations (exhausted cascade, total technical failure, doctor cancellation, schedule conflict...) converge into a single staff alert mechanism, with a label derived from the appointment's state rather than a dedicated field per case. A bounded human follow-up loop, capped at two call cycles, takes over when manual intervention is needed.</div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 8 -->
+  <section class="block">
+    <div class="section-tag"><span class="num">8</span><span data-i18n="s8-tag">Business logic</span></div>
+    <h2 data-i18n="s8-h2">Doctor cancellations & leave</h2>
+
+    <p data-i18n="s8-p1">A doctor can cancel an individual appointment at any time, including within 3 hours, with no justification required — a genuine unavailability shouldn't need to be explained. This case automatically locks the slot (it never reopens on its own), unlike a patient-initiated cancellation, where the slot becomes available again normally. This single distinction lets the rest of the system know, unambiguously, who initiated a cancellation.</p>
+
+    <p data-i18n="s8-p2">Full leave (a day off or an extended absence) follows a different path than a simple schedule exception: it goes through a request submitted for management approval, whose sign-off also counts as confirmation of any conflicting cancellations — no redundant extra step.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 9 -->
+  <section class="block">
+    <div class="section-tag"><span class="num">9</span><span data-i18n="s9-tag">Business logic</span></div>
+    <h2 data-i18n="s9-h2">Billing & medical record</h2>
+
+    <div class="grid-2" data-i18n="s9-cards">
+      <div class="card">
+        <h4><span class="icon">🧾</span>Billing</h4>
+        <p>An invoice is generated once, when an appointment is marked completed. A later administrative correction (data entry error) automatically generates a credit note — the original invoice stays on record, never deleted.</p>
+      </div>
+      <div class="card">
+        <h4><span class="icon">📁</span>Medical record</h4>
+        <p>One per patient, updated at every consultation. Read access for any doctor treating that patient (continuity of care), write access limited to the author. Anonymized, never deleted, on GDPR deletion.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 10 -->
+  <section class="block">
+    <div class="section-tag"><span class="num">10</span><span data-i18n="s10-tag">Governance</span></div>
+    <h2 data-i18n="s10-h2">Roles & permissions</h2>
+
+    <table data-i18n="s10-table">
+      <tr><th>Role</th><th>Can</th><th>Cannot</th></tr>
+      <tr><td><strong>Patient</strong></td><td>Book, reschedule, manage their account, export/delete their data</td><td>Cancel online within 3h, see other patients</td></tr>
+      <tr><td><strong>Doctor</strong></td><td>Real-time schedule, free individual cancellation, medical records of their own patients</td><td>Write to a patient's identity fields, take full leave without approval</td></tr>
+      <tr><td><strong>Front desk</strong></td><td>Handle alerts, reschedule manually, follow up, issue tracked refunds</td><td>Access the medical record or the audit log</td></tr>
+      <tr><td><strong>Management</strong></td><td>Approve leave, view the audit log and reporting, full read access</td><td>Edit a patient's data, act directly on an individual appointment</td></tr>
+    </table>
+
+    <p data-i18n="s10-p1">The audit log — record access and GDPR events — is append-only and restricted to management: no line is ever edited or deleted, by any role.</p>
+  </section>
+
+  <div class="closing">
+    <h2 data-i18n="close-h2">What this project demonstrates</h2>
+    <p data-i18n="close-p1">Vitalis Clinic isn't a technical showpiece: it's a test of the ability to think a business product through to its edge cases, then build it in a steered way rather than a reactive one.</p>
+    <div class="grid-2" data-i18n="close-cards">
+      <div class="card">
+        <h4><span class="icon">🧭</span>Structure before building</h4>
+        <p>Four roles, four core functions, explicit dependencies between steps — the product is designed as a system before it's written as code.</p>
+      </div>
+      <div class="card">
+        <h4><span class="icon">🔍</span>Challenging your own logic</h4>
+        <p>Every business rule was re-read for its own contradictions before being validated — a discipline as important as writing the code itself.</p>
+      </div>
+      <div class="card">
+        <h4><span class="icon">🤝</span>Steering AI agents</h4>
+        <p>Framing, building, verifying: three distinct roles, deliberately kept separate rather than collapsed into a single act of production.</p>
+      </div>
+      <div class="card">
+        <h4><span class="icon">🏥</span>Thinking business, not just tech</h4>
+        <p>GDPR, time zones, no-shows, refunds: the real difficulties of a clinical product are anticipated, not discovered in production.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="meta" data-i18n="footer">Vitalis Clinic — Product Reference Document</footer>
+
+</div>
+
+<script>
+const fr = {
+  "eyebrow": "📋 Document de référence produit",
+  "title": "Vitalis Clinic",
+  "lede": "Plateforme de gestion clinique pluridisciplinaire — quatre rôles, quatre fonctions cœur, une logique métier pensée pour être adaptable à un déploiement réel.",
+  "pill1": "🏥 Réservation · Dossier médical · Paiement · Notifications",
+  "pill2": "🌍 FR / EN",
+  "pill3": "🔐 RGPD by design",
+  "toc-title": "Sommaire",
+  "toc-list": "<li>Ce qu'est Vitalis Clinic</li><li>Comment le projet a été piloté</li><li>Séquence de construction</li><li>Compte utilisateur & conformité</li><li>Réservation, disponibilité & reprogrammation</li><li>Paiements & cas limites</li><li>Cascade de rappel & alertes secrétariat</li><li>Annulation médecin & congés</li><li>Facturation & dossier médical</li><li>Rôles & permissions</li><li>Ce que ce projet démontre</li>",
+  "s1-tag": "Cadrage",
+  "s1-h2": "Ce qu'est Vitalis Clinic",
+  "s1-p1": "Vitalis Clinic est un produit métier vertical livré par instance : chaque acheteur reçoit son propre déploiement, adaptable à son marché (moyen de paiement, langue, canaux de notification). L'objectif n'est pas une démonstration technique isolée, mais la preuve qu'un produit métier complexe et crédible peut être piloté de bout en bout — de la logique métier jusqu'à la mise en production.",
+  "s1-cards": "<div class='card'><h4><span class='icon'>👤</span>Patient</h4><p>Réserve, reprogramme, gère son compte et ses données.</p></div><div class='card'><h4><span class='icon'>🩺</span>Médecin</h4><p>Agenda temps réel, dossier médical, congés.</p></div><div class='card'><h4><span class='icon'>📞</span>Secrétariat</h4><p>Relance humaine, gestion des alertes, guichet.</p></div><div class='card'><h4><span class='icon'>📊</span>Direction</h4><p>Audit, reporting, validation des congés.</p></div>",
+  "s1-rule": "<strong>Principe de conception clé</strong> — rien qui valorise le travail de conception (dossier de présentation, stack technique, score de performance) n'apparaît sur le produit lui-même. Le produit doit rester crédible en tant que site de clinique ; sa mise en avant vit ailleurs, dans un portfolio séparé.",
+  "s2-tag": "Méthode",
+  "s2-h2": "Comment le projet a été piloté",
+  "s2-p1": "Un produit métier complexe, comme un système hospitalier logiciel, met à l'épreuve la capacité à cadrer avant de construire — pas seulement à écrire du code. Le projet repose sur trois piliers.",
+  "s2-flow": "<div class='flow-step'><div class='step-num'>1</div><h5>Cadrage métier</h5><p>Chaque règle (paiement, RGPD, cascade de rappel) est spécifiée, puis confrontée à une relecture critique pour en débusquer les contradictions avant toute ligne de code.</p></div><div class='flow-step'><div class='step-num'>2</div><h5>Construction assistée</h5><p>Le code est produit avec un agent IA, sur des cycles courts par phase fonctionnelle — jamais un flux monolithique.</p></div><div class='flow-step'><div class='step-num'>3</div><h5>Vérification multi-niveaux</h5><p>Analyse statique automatisée, revue en contexte séparé à chaque phase, revue globale avant tout lancement public.</p></div>",
+  "s2-callout": "💡 Point de méthode : la logique métier de ce document a elle-même été passée au crible pour en éliminer les contradictions — deux formulations d'une même règle qui ne se recoupaient pas, un rôle non habilité à déclencher une action pourtant définie, une table cœur absente d'une fonction annoncée comme prioritaire. Cadrer un projet, c'est aussi savoir le remettre en question avant de le construire.",
+  "s3-tag": "Construction",
+  "s3-h2": "Séquence de construction",
+  "s3-p1": "Les étapes suivent les dépendances réelles du produit — impossible de gérer un paiement avant qu'un rendez-vous existe, ou une cascade de rappel avant que le paiement soit fiabilisé.",
+  "s3-timeline": "<div class='tl-item'><h4>1 · Fondations</h4><p>Authentification, rôles, calcul de disponibilité en temps réel, réservation simple.</p></div><div class='tl-item'><h4>2 · Comptes & conformité</h4><p>Gestion de compte, RGPD, mode démo, multilinguisme, fuseaux horaires.</p></div><div class='tl-item'><h4>3 · Reprogrammation & annulation</h4><p>Logique de reprogrammation, annulation médecin, exceptions de planning.</p></div><div class='tl-item'><h4>4 · Paiements</h4><p>Stripe + PayPal, statuts, audit de sécurité du webhook entrant.</p></div><div class='tl-item'><h4>5 · Notifications</h4><p>Cascade de rappel, alertes secrétariat, boucle de relance — la partie la plus dense du projet.</p></div><div class='tl-item'><h4>6 · Facturation</h4><p>Facture automatique, avoirs sur correction administrative.</p></div><div class='tl-item'><h4>7 · Congés médecin</h4><p>Demande, validation direction, conflits.</p></div><div class='tl-item'><h4>8 · Fiabilisation</h4><p>Tests automatisés, concurrence réelle, sauvegardes testées — dernière étape avant toute présentation.</p></div>",
+  "s4-tag": "Logique métier",
+  "s4-h2": "Compte utilisateur & conformité",
+  "s4-sub1": "🔑 Identité stable",
+  "s4-p1": "L'identifiant patient (UUID) ne change jamais, quelles que soient les modifications apportées au compte. Les champs sans enjeu de sécurité (nom, téléphone) se modifient en place ; les champs sensibles (email, mot de passe) vivent dans une section dédiée avec double confirmation et déconnexion des autres sessions.",
+  "s4-sub2": "🇪🇺 RGPD",
+  "s4-p2": "Export et suppression des données sont self-service. La suppression n'efface pas le compte : elle l'anonymise (UUID conservé pour préserver l'intégrité des rendez-vous et paiements passés), tandis que l'accès de connexion est réellement supprimé. Les rendez-vous futurs sont annulés silencieusement — sans alerte au secrétariat, puisqu'il n'y a rien à corriger — alors qu'une absence de profil due à une anomalie technique, elle, déclenche une alerte : la différence entre une conséquence voulue et un problème réel est actée dans la donnée elle-même.",
+  "s4-cards": "<div class='card'><h4><span class='icon'>🌐</span>Multilinguisme</h4><p>FR/EN dès le lancement, architecture pensée pour ajouter une langue sans refonte.</p></div><div class='card'><h4><span class='icon'>🕐</span>Fuseaux horaires</h4><p>Stockage et automatisation en UTC ; chaque utilisateur voit l'heure convertie dans son fuseau local, jamais dans celui de l'autre partie.</p></div>",
+  "s5-tag": "Logique métier",
+  "s5-h2": "Réservation, disponibilité & reprogrammation",
+  "s5-p1": "La disponibilité d'un créneau n'est jamais un champ à synchroniser : elle est recalculée en direct à partir du planning type, des exceptions ponctuelles et des rendez-vous actifs. Patient et médecin lisent toujours la même vérité. Une même plage horaire ne peut jamais être réservée deux fois, même par deux patients agissant au même instant — cette garantie est assurée au niveau de la base de données, pas seulement par l'interface.",
+  "s5-rule": "<strong>Règle d'or de la reprogrammation</strong> — reprogrammer ne modifie jamais un rendez-vous existant : cela crée systématiquement un nouvel enregistrement, avec un lien de traçabilité vers l'ancien. Le paiement déjà effectué suit automatiquement la nouvelle date, sans qu'aucune décision ne soit demandée au patient. L'ensemble de l'opération (annulation + création + transfert du paiement) réussit ou échoue comme un tout — jamais d'état intermédiaire incohérent.",
+  "s5-p2": "Le patient peut reprogrammer librement jusqu'à 3h avant son rendez-vous ; en dessous, il passe par le secrétariat. Ce seuil protège uniquement les rendez-vous à venir — il ne s'applique pas à la fenêtre de 15 jours accordée après un rendez-vous non honoré, qui répond à une logique distincte (voir section suivante).",
+  "s6-tag": "Logique métier",
+  "s6-h2": "Paiements & cas limites",
+  "s6-p1": "Stripe est le moyen de paiement principal, PayPal une option secondaire testée au même niveau d'exigence. Le paiement a lieu au moment de la réservation ; le créneau est bloqué pendant la transaction, puis libéré automatiquement si le paiement n'aboutit pas dans un délai court — aucun rendez-vous ne persiste sans paiement confirmé.",
+  "s6-sub1": "⏳ Règle des 15 jours",
+  "s6-p2": "Un rendez-vous non honoré ne rembourse pas le paiement : il le met en suspens pendant 15 jours, période durant laquelle le patient peut reprogrammer en réutilisant ce même paiement. Passé ce délai sans reprogrammation, le paiement est définitivement acquis à la clinique. Le reporting ne compte jamais un paiement en suspens comme un gain acquis — seuls les statuts finaux entrent dans le bilan de la direction.",
+  "s6-callout": "🔁 Un même paiement ne peut jamais servir deux fois : si le rendez-vous reprogrammé via cette fenêtre est lui aussi manqué, le paiement devient immédiatement acquis, sans ouvrir une seconde fenêtre de 15 jours.",
+  "s7-tag": "Logique métier",
+  "s7-h2": "Cascade de rappel & alertes secrétariat",
+  "s7-p1": "Objectif : réduire les rendez-vous manqués sans harceler le patient. Le patient choisit un, deux ou trois canaux (WhatsApp, Telegram, Email) dans un ordre de priorité fixe. Avant chaque envoi, le statut du rendez-vous est relu en direct — si le patient a déjà répondu, la cascade s'arrête immédiatement, quel que soit le canal restant.",
+  "s7-table": "<tr><th>Étape</th><th>Délai</th><th>Condition</th></tr><tr><td>Canal prioritaire</td><td>T+0</td><td>Coché et statut encore en attente</td></tr><tr><td>Canal suivant</td><td>+5h</td><td>Coché et statut encore en attente</td></tr><tr><td>Dernier canal</td><td>+5h</td><td>Coché et statut encore en attente</td></tr>",
+  "s7-p2": "Coupe-circuit absolu : à moins de 3h du rendez-vous, la cascade s'arrête, quel que soit l'avancement. Aucun envoi automatique entre 21h et 7h (fuseau local du patient), sauf si retarder l'envoi ferait manquer la fenêtre utile.",
+  "s7-rule": "<strong>« Rendez-vous à traiter »</strong> — huit situations distinctes (cascade épuisée, échec technique total, annulation médecin, conflit de planning...) convergent vers un mécanisme d'alerte unique au secrétariat, avec une étiquette déduite de l'état du rendez-vous plutôt qu'un champ dédié par cas. Une boucle de relance humaine, bornée à deux cycles d'appels, prend le relais quand une intervention manuelle est nécessaire.",
+  "s8-tag": "Logique métier",
+  "s8-h2": "Annulation médecin & congés",
+  "s8-p1": "Le médecin peut annuler un rendez-vous individuel à tout moment, y compris à moins de 3h, sans justification — une indisponibilité réelle n'a pas à être motivée. Ce cas déclenche automatiquement le blocage du créneau (il ne se rouvre jamais tout seul), contrairement à une annulation initiée par le patient, où le créneau redevient disponible normalement. Cette distinction unique permet à tout le reste du système de savoir, sans ambiguïté, qui est à l'origine d'une annulation.",
+  "s8-p2": "Un congé complet (jour ou absence prolongée) suit un chemin différent d'une simple exception de planning : il passe par une demande soumise à validation de la direction, dont l'approbation vaut également confirmation des annulations en conflit — sans étape intermédiaire superflue.",
+  "s9-tag": "Logique métier",
+  "s9-h2": "Facturation & dossier médical",
+  "s9-cards": "<div class='card'><h4><span class='icon'>🧾</span>Facturation</h4><p>Une facture est générée une seule fois, au passage à « honoré ». Une correction administrative ultérieure (erreur de saisie) génère un avoir automatique — l'ancienne facture reste tracée, jamais supprimée.</p></div><div class='card'><h4><span class='icon'>📁</span>Dossier médical</h4><p>Unique par patient, alimenté à chaque consultation. Accès en lecture pour tout médecin traitant ce patient (continuité des soins), en écriture pour le seul rédacteur. Anonymisé, jamais supprimé, en cas de suppression RGPD.</p></div>",
+  "s10-tag": "Gouvernance",
+  "s10-h2": "Rôles & permissions",
+  "s10-table": "<tr><th>Rôle</th><th>Peut</th><th>Ne peut pas</th></tr><tr><td><strong>Patient</strong></td><td>Réserver, reprogrammer, gérer son compte, exporter/supprimer ses données</td><td>Annuler en ligne à &lt;3h, voir d'autres patients</td></tr><tr><td><strong>Médecin</strong></td><td>Agenda temps réel, annulation individuelle libre, dossier médical de ses patients</td><td>Écrire sur l'identité du patient, poser un congé sans validation</td></tr><tr><td><strong>Secrétariat</strong></td><td>Traiter les alertes, reprogrammer manuellement, relancer, rembourser (tracé)</td><td>Accéder au dossier médical ou au journal d'audit</td></tr><tr><td><strong>Direction</strong></td><td>Valider les congés, consulter l'audit et le reporting, accès complet en lecture</td><td>Modifier une donnée patient, agir sur un rendez-vous individuel</td></tr>",
+  "s10-p1": "Le journal d'audit — accès et événements RGPD — est append-only et réservé à la direction : aucune ligne n'y est jamais modifiée ou supprimée, par aucun rôle.",
+  "close-h2": "Ce que ce projet démontre",
+  "close-p1": "Vitalis Clinic n'est pas un exercice de style technique : c'est un test de la capacité à penser un produit métier jusqu'à ses cas limites, puis à le construire de façon pilotée plutôt que subie.",
+  "close-cards": "<div class='card'><h4><span class='icon'>🧭</span>Structurer avant de construire</h4><p>Quatre rôles, quatre fonctions cœur, des dépendances explicites entre étapes — le produit est pensé comme un système avant d'être écrit comme du code.</p></div><div class='card'><h4><span class='icon'>🔍</span>Confronter sa propre logique</h4><p>Chaque règle métier a été relue à la recherche de ses propres contradictions avant validation — une discipline aussi importante que l'écriture du code elle-même.</p></div><div class='card'><h4><span class='icon'>🤝</span>Piloter des agents IA</h4><p>Cadrage, construction, vérification : trois rôles distincts, assumés consciemment plutôt que confondus dans un unique geste de production.</p></div><div class='card'><h4><span class='icon'>🏥</span>Penser métier, pas seulement technique</h4><p>RGPD, fuseaux horaires, non-présentation, remboursements : les vraies difficultés d'un produit clinique sont anticipées, pas découvertes en production.</p></div>",
+  "footer": "Vitalis Clinic — Document de référence produit"
+};
+
+const en = {};
+document.querySelectorAll('[data-i18n]').forEach(el => {
+  const key = el.getAttribute('data-i18n');
+  en[key] = el.tagName === 'OL' || el.classList.contains('grid-2') || el.classList.contains('grid-4') || el.classList.contains('flow') || el.classList.contains('timeline') || el.tagName === 'TABLE'
+    ? el.innerHTML
+    : el.innerHTML;
+});
+
+function setLang(lang) {
+  const dict = lang === 'fr' ? fr : en;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key] !== undefined) el.innerHTML = dict[key];
+  });
+  document.documentElement.lang = lang;
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
+}
+</script>
+
+</body>
+</html>
